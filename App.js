@@ -1,20 +1,59 @@
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+// Ekranları import et
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import HomeScreen from './src/screens/HomeScreen';
+
+// Veritabanı
+import DatabaseHelper from './src/database/DatabaseHelper';
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  useEffect(() => {
+    const initDatabase = async () => {
+      try {
+        const dbHelper = new DatabaseHelper();
+        
+        console.log('Veritabanı başarıyla başlatıldı');
+      } catch (error) {
+        console.error('Veritabanı başlatma hatası:', error);
+      }
+    };
+  
+    initDatabase();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ title: 'Giriş' }}
+        />
+        <Stack.Screen 
+          name="Register" 
+          component={RegisterScreen} 
+          options={{ title: 'Kayıt Ol' }}
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen}
+          options={{ 
+            title: 'Ana Sayfa',
+            // Geri düğmesini kaldır (giriş sonrası)
+            headerBackVisible: false
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
