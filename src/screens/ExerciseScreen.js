@@ -63,7 +63,7 @@ const exerciseImages = {
 
 const ExerciseScreen = () => {
   const apiUrl = "https://api.api-ninjas.com/v1/exercises";
-  const apiKey = "dqOSOqDyEDvX/mjtOSnamw==9CWVoGJdRSiPYYDm"; // APİ Key güvenlik amacıyla silindi
+  const apiKey = "dqOSOqDyEDvX/mjtOSnamw==9CWVoGJdRSiPYYDm";
   
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -18,7 +18,8 @@ class DatabaseHelper {
       
       this.database = await SQLite.openDatabaseAsync('app_database.db');
       
-      // Kullanıcı tablosu
+      // Kullanıcı tablosu oluşturma alanı 
+      // id, username, email ve password'u olacak
       await this.database.execAsync(`
         CREATE TABLE IF NOT EXISTS users (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +29,7 @@ class DatabaseHelper {
         );
       `);
       
-      // Favoriler tablosu
+      // Favoriler tablosu burada mail adresi ortak alan seçildiğinden kişisel veriler o mail adresine göre çekilecek
       await this.database.execAsync(`
         CREATE TABLE IF NOT EXISTS user_favorites (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -80,7 +81,7 @@ class DatabaseHelper {
       console.log('Veritabanı bağlantısı:', db ? 'Başarılı' : 'Başarısız');
       console.log('SQL sorgusu hazırlanıyor:', { username, email, password });
       
-      // SQL sorgusunu çalıştır
+      
       await db.execAsync(
         `INSERT INTO users (username, email, password) VALUES ('${username}', '${email}', '${password}')`
       );
@@ -201,18 +202,6 @@ class DatabaseHelper {
       );
     } catch (error) {
       console.error('Sağlık verilerini getirme hatası:', error);
-      throw error;
-    }
-  }
-
-  // Tüm kullanıcıları çekme
-  async getAllUsers() {
-    try {
-      const db = await this.getDatabase();
-      
-      return await db.getAllAsync('SELECT * FROM users');
-    } catch (error) {
-      console.error('Tüm kullanıcıları getirme hatası:', error);
       throw error;
     }
   }
