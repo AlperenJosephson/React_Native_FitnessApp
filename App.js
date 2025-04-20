@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import ExerciseScreen from './src/screens/ExerciseScreen';
 
 // Veritabanı
 import DatabaseHelper from './src/database/DatabaseHelper';
@@ -47,9 +48,13 @@ const App = () => {
           component={HomeScreen}
           options={{ 
             title: 'Ana Sayfa',
-            // Geri düğmesini kaldır (giriş sonrası)
             headerBackVisible: false
           }}
+        />
+        <Stack.Screen
+          name="Exercise"
+          component={ExerciseScreen}
+          options={{ title: 'Egzersizler'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
