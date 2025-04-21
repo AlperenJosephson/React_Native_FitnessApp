@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { userSession } from './UserSession';
@@ -6,6 +6,11 @@ import { userSession } from './UserSession';
 const HomeScreen = ({ route }) => {
   const navigation = useNavigation();
   const { username, email } = route.params || {};
+
+  // Email kontrolü
+  useEffect(() => {
+    console.log("HomeScreen email:", email);
+  }, [email]);
 
   const handleLogout = () => {
     // Kullanıcı oturumunu kapat
@@ -32,7 +37,15 @@ const HomeScreen = ({ route }) => {
         
         <TouchableOpacity 
           style={styles.menuItem}
-          onPress={() => navigation.navigate('Favorites')}
+          onPress={() => {
+            if (email) {
+              console.log("Navigating to Favorites with email:", email);
+              navigation.navigate('Favorites', { userEmail: email });
+            } else {
+              console.error("Email is undefined");
+              alert("Oturum bilgisi alınamadı. Lütfen tekrar giriş yapın.");
+            }
+          }}
         >
           <Text style={styles.menuItemText}>Favorilerim</Text>
         </TouchableOpacity>

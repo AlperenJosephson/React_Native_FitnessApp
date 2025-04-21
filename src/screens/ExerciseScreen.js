@@ -127,14 +127,31 @@ const ExerciseScreen = () => {
     }
   };
 
-  // Favorilere ekleme
+  // ExerciseScreen.js içindeki addToFavorites fonksiyonu
   const addToFavorites = async (exercise) => {
     try {
       await dbHelper.initDatabase();
       
-      if (userSession.getUser()?.email) {
-        await dbHelper.addFavoriteExercise(userSession.getUser().email, exercise);
-        Alert.alert("Başarılı", `${exercise.name} favorilere eklendi!`);
+      // UserSession'dan kullanıcı bilgisini alıyoruz
+      const currentUser = userSession.getUser();
+      console.log("Mevcut kullanıcı:", currentUser);
+  
+      if (currentUser && currentUser.email) {
+        // Farklı bir SQL sorgusu deneyelim
+        try {
+          // Doğrudan SQL sorgusu
+          const db = await dbHelper.getDatabase();
+          await db.execAsync(
+            `INSERT INTO user_favorites (user_email, exercise_name, muscle, equipment, difficulty, instructions) 
+             VALUES ('${currentUser.email}', '${exercise.name}', '${exercise.muscle}', 
+                    '${exercise.equipment || ""}', '${exercise.difficulty || ""}', 
+                    '${exercise.instructions || ""}')`
+          );
+          Alert.alert("Başarılı", `${exercise.name} favorilere eklendi!`);
+        } catch (directError) {
+          console.error("Doğrudan SQL sorgusu hatası:", directError);
+          Alert.alert("Hata", "Favorilere eklenirken bir sorun oluştu.");
+        }
       } else {
         Alert.alert("Uyarı", "Lütfen giriş yapınız");
       }
@@ -143,7 +160,6 @@ const ExerciseScreen = () => {
       Alert.alert("Hata", "Favorilere eklenirken bir sorun oluştu.");
     }
   };
-
   // Talimatları göster/gizle
   const toggleInstructions = (index) => {
     setShowInstructions(prev => ({

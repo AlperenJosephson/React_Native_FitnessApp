@@ -1,4 +1,4 @@
-// Basit bir kullanıcı oturumu yönetim sınıfı
+// src/screens/UserSession.js
 class UserSession {
   constructor() {
     this.user = null;
@@ -6,6 +6,7 @@ class UserSession {
 
   // Kullanıcı bilgilerini ayarla
   setUser({ email, username }) {
+    console.log("UserSession: Kullanıcı ayarlanıyor:", email, username);
     this.user = {
       email,
       username,
@@ -16,6 +17,7 @@ class UserSession {
 
   // Kullanıcı bilgilerini getir
   getUser() {
+    console.log("UserSession: getUser çağrıldı, mevcut kullanıcı:", this.user);
     return this.user;
   }
 
@@ -26,6 +28,7 @@ class UserSession {
 
   // Kullanıcı çıkışı
   logout() {
+    console.log("UserSession: Kullanıcı çıkış yapıyor");
     this.user = null;
   }
 }

@@ -8,6 +8,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ExerciseScreen from './src/screens/ExerciseScreen';
+import FavoritesScreen from './src/screens/FavoritesScreen';
 
 // Veritabanı
 import DatabaseHelper from './src/database/DatabaseHelper';
@@ -56,6 +57,11 @@ const App = () => {
           name="Exercise"
           component={ExerciseScreen}
           options={{ title: 'Egzersizler'}}
+        />
+        <Stack.Screen 
+          name="Favorites" 
+          component={FavoritesScreen}
+          options={{ title: 'Favori Egzersizler' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
