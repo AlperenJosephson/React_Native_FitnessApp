@@ -9,6 +9,9 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ExerciseScreen from './src/screens/ExerciseScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import CalorieScreen from './src/screens/CalorieScreen';
+import NutritionScreen from './src/screens/NutritionScreen';
 
 // Veritabanı
 import DatabaseHelper from './src/database/DatabaseHelper';
@@ -20,7 +23,7 @@ const App = () => {
     const initDatabase = async () => {
       try {
         const dbHelper = new DatabaseHelper();
-        
+        await dbHelper.initDatabase();
         console.log('Veritabanı başarıyla başlatıldı');
       } catch (error) {
         console.error('Veritabanı başlatma hatası:', error);
@@ -62,6 +65,21 @@ const App = () => {
           name="Favorites" 
           component={FavoritesScreen}
           options={{ title: 'Favori Egzersizler' }}
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen}
+          options={{ title: 'Kişisel Sağlık Verileri' }}
+        />
+        <Stack.Screen 
+          name="Calorie" 
+          component={CalorieScreen}
+          options={{ title: 'Kalori Hesaplama' }}
+        />
+        <Stack.Screen 
+          name="Nutrition" 
+          component={NutritionScreen}
+          options={{ title: 'Beslenme Desteği' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

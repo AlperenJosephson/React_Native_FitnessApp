@@ -231,16 +231,12 @@ class DatabaseHelper {
       
       const db = await this.getDatabase();
       
+      // String interpolation kullanarak sorgu oluştur
       const result = await db.execAsync(
-        'INSERT INTO user_health_data (user_email, height, weight, exercise_duration, steps, entry_date) VALUES (?, ?, ?, ?, ?, ?)',
-        [
-          userEmail,
-          healthData.height,
-          healthData.weight,
-          healthData.exercise_duration,
-          healthData.steps,
-          new Date().toISOString()
-        ]
+        `INSERT INTO user_health_data (user_email, height, weight, exercise_duration, steps, entry_date) 
+         VALUES ('${userEmail}', ${healthData.height}, ${healthData.weight}, 
+                 ${healthData.exercise_duration}, ${healthData.steps}, 
+                 '${new Date().toISOString()}')`,
       );
       
       console.log("Sağlık verisi ekleme sonucu:", result);

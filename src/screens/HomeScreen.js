@@ -59,7 +59,22 @@ const HomeScreen = ({ route }) => {
         
         <TouchableOpacity 
           style={styles.menuItem}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate('Calorie')}
+        >
+          <Text style={styles.menuItemText}>Kalori Hesaplama</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.menuItem}
+          onPress={() => {
+            if (email) {
+              console.log("Navigating to Profile with email:", email);
+              navigation.navigate('Profile', { userEmail: email });
+            } else {
+              console.error("Email is undefined");
+              alert("Oturum bilgisi alınamadı. Lütfen tekrar giriş yapın.");
+            }
+          }}
         >
           <Text style={styles.menuItemText}>Profil</Text>
         </TouchableOpacity>
@@ -97,7 +112,7 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     width: '48%',
-    height: 100,
+    height: 80,
     backgroundColor: '#3498db',
     borderRadius: 10,
     justifyContent: 'center',
@@ -106,8 +121,9 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   logoutButton: {
     backgroundColor: '#e74c3c',
