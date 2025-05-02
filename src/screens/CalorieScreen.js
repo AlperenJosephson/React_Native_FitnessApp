@@ -192,7 +192,8 @@ const CalorieScreen = () => {
             keyExtractor={item => item.id}
             scrollEnabled={true}
             nestedScrollEnabled={true}
-            style={{ maxHeight: 400 }}
+            style={{ maxHeight: 400, marginTop: 20, marginBottom: 40 }}
+            contentContainerStyle={{ paddingBottom: 30 }}
           />
         </View>
       </ScrollView>
@@ -275,6 +276,7 @@ const styles = StyleSheet.create({
   },
   calorieListContainer: {
     marginTop: 20,
+    marginBottom: 30
   },
   calorieListTitle: {
     fontSize: 18,
